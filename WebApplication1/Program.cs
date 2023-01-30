@@ -1,6 +1,12 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using WebApplication1.Db;
+using WebApplication1.Repository.City;
+using WebApplication1.Repository.Movie;
+using WebApplication1.Repository.State;
+using WebApplication1.Repository.User;
 using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +19,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ISecurityService, SecurityService>();
+builder.Services.AddTransient<IStateRepository, StateRepository>();
+builder.Services.AddTransient<ICityRepository, CityRepository>();
+builder.Services.AddTransient<IMovieRepository, MovieRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -35,6 +45,10 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+builder.Services.AddDbContext<MovieContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:Con"]);
+});
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Model;
+using WebApplication1.Repository.User;
 
 namespace WebApplication1.Services
 {
@@ -14,14 +15,18 @@ namespace WebApplication1.Services
     public class SecurityService : ISecurityService
     {
         private readonly IConfiguration _configuration;
+        private readonly IUserRepository _userRepository;
 
-        public SecurityService(IConfiguration configuration)
+        public SecurityService(IConfiguration configuration, IUserRepository userRepository)
         {
             _configuration = configuration;
+            _userRepository = userRepository;
         }
         public (bool, string) ValidateUser(LoginRequest loginDetails)
         {
-            if (loginDetails.UserName.Equals("Test", StringComparison.InvariantCultureIgnoreCase) && loginDetails.Password == "test123")
+            var user = _userRepository.Authenticate(loginDetails.UserName, loginDetails.Password);
+
+            if (user != null)
             {
                 var issuer = _configuration["Jwt:Issuer"];
                 var audience = _configuration["Jwt:Audience"];
