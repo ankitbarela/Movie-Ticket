@@ -35,13 +35,18 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Produces("application/json")]
-        public async void Post(User user)
+        public IResult Post(User user)
         {
             var encryptedPassword = userRepository.EncodePassword(user.Password);
             user.Password = encryptedPassword;
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
-            userRepository.Create(user);
+            var userCreated = userRepository.Create(user);
+            if (userCreated != null)
+            {
+                return Results.Ok(user.Email);
+            }
+            return Results.BadRequest();    
         }
 
     }
