@@ -7,10 +7,6 @@ using WebApplication1.Repository.User;
 
 namespace WebApplication1.Services
 {
-    public interface ISecurityService
-    {
-        (bool, string) ValidateUser(LoginRequest loginDetails);
-    }
 
     public class SecurityService : ISecurityService
     {

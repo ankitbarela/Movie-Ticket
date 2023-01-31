@@ -34,6 +34,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void Post(User user)
         {
+            var encryptedPassword = userRepository.EncodePassword(user.Password);
+            user.Password = encryptedPassword;
             userRepository.Create(user);
         }
 
