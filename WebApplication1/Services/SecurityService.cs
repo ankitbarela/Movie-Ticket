@@ -20,8 +20,9 @@ namespace WebApplication1.Services
         }
         public (bool, string) ValidateUser(LoginRequest loginDetails)
         {
+            var encryptPassword = _userRepository.EncodePassword(loginDetails.Password);
+            loginDetails.Password = encryptPassword;
             var user = _userRepository.Authenticate(loginDetails.UserName, loginDetails.Password);
-
             if (user != null)
             {
                 var issuer = _configuration["Jwt:Issuer"];

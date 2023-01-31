@@ -7,5 +7,7 @@
         Model.User Create(Model.User city);
         Model.User Authenticate(string userName, string password);
         string EncodePassword(string password);
+        string DecodePassword(string password);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Model;
 using WebApplication1.Repository.Movie;
@@ -32,10 +33,14 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public void Post(User user)
+        [AllowAnonymous]
+        [Produces("application/json")]
+        public async void Post(User user)
         {
             var encryptedPassword = userRepository.EncodePassword(user.Password);
             user.Password = encryptedPassword;
+            user.CreatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.Now;
             userRepository.Create(user);
         }
 
