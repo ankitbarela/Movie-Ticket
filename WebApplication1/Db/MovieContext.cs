@@ -13,5 +13,6 @@ namespace WebApplication1.Db
         public DbSet<Model.State> State { get; set; }
         public DbSet<Model.Movie> Movie { get; set; }
         public DbSet<Model.User> User { get; set; }
+        public DbSet<Model.LoginCredential> loginCredential { get; set; }
     }
 }

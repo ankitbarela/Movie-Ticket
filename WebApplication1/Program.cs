@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Db;
 using WebApplication1.Repository.City;
+using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.Movie;
 using WebApplication1.Repository.State;
 using WebApplication1.Repository.User;
@@ -23,6 +24,7 @@ builder.Services.AddTransient<IStateRepository, StateRepository>();
 builder.Services.AddTransient<ICityRepository, CityRepository>();
 builder.Services.AddTransient<IMovieRepository, MovieRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ILoginCredential, LoginCredential>();
 
 builder.Services.AddAuthentication(options =>
 {
