@@ -29,5 +29,25 @@ namespace WebApplication1.Repository.LoginCredential
         {
             return entities.Find(id);
         }
+
+        public Model.LoginCredential AddData(Model.User user)
+        {
+            var loginCredential = new Model.LoginCredential();
+            loginCredential.UserName = user.Name;
+            loginCredential.Password = user.Password;
+            loginCredential.Email = user.Email;
+            loginCredential.CreatedAt = DateTime.Now;
+            loginCredential.CreatedBy = user.CreatedBy;
+            loginCredential.UpdatedAt = DateTime.Now;
+            loginCredential.IsActive = false;
+            loginCredential.UserId = user.UserId;
+            loginCredential.UpdatedBy = user.UpdatedBy;
+            return loginCredential;
+        }
+
+        public List<Model.LoginCredential> GetByEmail(string email)
+        {
+            return dbContext.loginCredential.Where(x=> x.Email == email).ToList();
+        }
     }
 }
