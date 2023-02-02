@@ -44,6 +44,7 @@ namespace WebApplication1.Controllers
             user.Password = encryptedPassword;
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
+            user.IsActive= true;
             var userCreated = userRepository.Create(user);
             if (userCreated != null)
             {
