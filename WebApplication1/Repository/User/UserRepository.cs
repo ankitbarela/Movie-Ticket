@@ -22,7 +22,14 @@ namespace WebApplication1.Repository.User
         public Model.User Create(Model.User user)
         {
             this.dbContext.Add(user);
-            this.dbContext.SaveChanges();
+            try
+            {
+                this.dbContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
             return user;
         }
 

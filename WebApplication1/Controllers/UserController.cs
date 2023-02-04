@@ -67,11 +67,14 @@ namespace WebApplication1.Controllers
             for (int i = 0; i < 3; i++)
             {
                 var lastThreeElements = loginCredentials.LastOrDefault();
-                if (lastThreeElements.Password == encryptedPassword)
+                if (lastThreeElements != null)
                 {
-                    return Results.BadRequest();
+                    if (lastThreeElements.Password == encryptedPassword)
+                    {
+                        return Results.BadRequest();
+                    }
+                    loginCredentials.RemoveAt(loginCredentials.Count - 1);
                 }
-                loginCredentials.RemoveAt(loginCredentials.Count - 1);
             }
             var userCreated = userRepository.Update(passwordChangedUser);
             if (userCreated != null)
@@ -80,8 +83,5 @@ namespace WebApplication1.Controllers
             }
             return Results.BadRequest();
         }
-
-      
-
     }
 }

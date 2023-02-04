@@ -37,11 +37,11 @@ namespace WebApplication1.Repository.LoginCredential
             loginCredential.Password = user.Password;
             loginCredential.Email = user.Email;
             loginCredential.CreatedAt = DateTime.Now;
-            loginCredential.CreatedBy = user.CreatedBy;
+            loginCredential.CreatedBy = user.UserId;
             loginCredential.UpdatedAt = DateTime.Now;
             loginCredential.IsActive = false;
             loginCredential.UserId = user.UserId;
-            loginCredential.UpdatedBy = user.UpdatedBy;
+            loginCredential.UpdatedBy = user.UserId;
             return loginCredential;
         }
 
