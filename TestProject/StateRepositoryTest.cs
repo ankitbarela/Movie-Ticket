@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
 using WebApplication1;
@@ -40,6 +41,34 @@ namespace TestProject
 
             // Assert
             Assert.Equal(1, getStates.Count);
+        }
+
+        [Fact]
+        public void GetStateByIdTest()
+        {
+            // Arrange
+            var state =
+                new State
+                {
+                    StateCode = 1,
+                    StateId = 1,
+                    StateName = "Test",
+                    IsActive = true,
+                    Createdby = "me",
+                    Updatedby = "me"
+                };
+           
+            var context = new Mock<MovieContext>();
+            var dbSetMock = new Mock<DbSet<State>>();
+
+            context.Setup(x => x.Set<State>()).Returns(dbSetMock.Object);
+            dbSetMock.Setup(x => x.Find(It.IsAny<int>())).Returns(state);
+            // Act
+            var repository = new StateRepository(context.Object);
+            var gateState = repository.GetById(1);
+
+            // Assert
+            Assert.Equal(1, gateState.StateId);
         }
     }
 }
