@@ -14,7 +14,7 @@ namespace TestProject
     {
 
         [Fact]
-        public void GetStatesTest()
+        public void GetStatesWhereIsOnlyOneValueExitsTest()
         {
             // Arrange
             var states = new List<State>()
@@ -41,6 +41,45 @@ namespace TestProject
 
             // Assert
             Assert.Equal(1, getStates.Count);
+        }
+
+        [Fact]
+        public void GetAllStatesTest()
+        {
+            // Arrange
+            var states = new List<State>()
+            {
+                new State
+                {
+                    StateCode= 1,
+                    StateId= 1,
+                    StateName= "Test",
+                    IsActive= true,
+                    Createdby="me",
+                    Updatedby ="me"
+                },
+                 new State
+                {
+                    StateCode= 12,
+                    StateId= 2,
+                    StateName= "jabalpur",
+                    IsActive= true,
+                    Createdby="me",
+                    Updatedby ="me"
+                }
+            };
+            var context = new Mock<MovieContext>();
+            var dbSetMock = new Mock<DbSet<State>>();
+
+            context.Setup(x => x.Set<State>()).Returns(dbSetMock.Object);
+            dbSetMock.Setup(i => i.AsQueryable()).Returns(states.AsQueryable());
+
+            // Act
+            var repository = new StateRepository(context.Object);
+            var getStates = repository.GetAll();
+
+            // Assert
+            Assert.Equal(states, getStates.ToList());
         }
 
         [Fact]
