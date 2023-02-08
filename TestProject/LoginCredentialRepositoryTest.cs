@@ -53,7 +53,16 @@ namespace TestProject
         public void CreateLoginCredentialTest()
         {
             // Arrange
-            var loginCredential = new LoginCredential();
+            var loginCredential = new LoginCredential()
+            {
+                UserId = 1,
+                UserName = "Test",
+                IsActive = true,
+                CreatedBy = 1,
+                UpdatedBy = 1,
+                Email = "this@gmail.com",
+                Password = "thisispassword"
+            };
             var loginCredentials = new List<LoginCredential>();
 
             var context = new Mock<MovieContext>();
@@ -62,13 +71,13 @@ namespace TestProject
             context.Setup(x => x.Set<LoginCredential>()).Returns(dbSetMock.Object);
             dbSetMock.Setup(m => m.Add(It.IsAny<LoginCredential>())).Callback((LoginCredential loginCredential1) => loginCredentials.Add(loginCredential1));
 
-
             // Act
             var repository = new LoginCredentialRepository(context.Object);
-            repository.Create(loginCredential);
+            var createdLogin =  repository.Create(loginCredential);
 
             // Assert
             context.Verify(x => x.Set<LoginCredential>());
+            Assert.Equal(loginCredential, createdLogin);
         }
 
         [Fact]
