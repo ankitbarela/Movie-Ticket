@@ -49,6 +49,40 @@ namespace TestProject
         }
 
         [Fact]
+        public void UpdateUserCredentialTest()
+        {
+            // Arrange
+            var user =
+                new User
+                {
+                    UserId = 2,
+                    Name = "ankit",
+                    Email = "test@gmail.com",
+                    IsActive = true,
+                    CreatedBy = "me",
+                    UpdatedBy = "me",
+                    Password = "dsjfns",
+                    Age = 23,
+                    ContactNumber = "343224",
+                };
+            var users = new List<User>();
+
+            var context = new Mock<MovieContext>();
+            var dbSetMock = new Mock<DbSet<User>>();
+
+            context.Setup(x => x.Set<User>()).Returns(dbSetMock.Object);
+            dbSetMock.Setup(m => m.Update(It.IsAny<User>())).Callback((User user) => users.Add(user));
+
+            // Act
+            var repository = new UserRepository(context.Object);
+            var createdUser = repository.Update(user);
+
+            // Assert
+            context.Verify(x => x.Set<User>());
+            Assert.Equal(user, createdUser);
+        }
+
+        [Fact]
         public void GetUsersWhereIsOnlyOneValueExitsTest()
         {
             // Arrange
