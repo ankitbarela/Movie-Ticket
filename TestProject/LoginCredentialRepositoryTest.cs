@@ -1,8 +1,10 @@
+using Bogus;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
+using System.Net.Sockets;
 using WebApplication1;
 using WebApplication1.Db;
 using WebApplication1.Model;
@@ -47,26 +49,27 @@ namespace TestProject
             Assert.Equal(1, getStates.Count);
         }
 
-        //[Fact]
-        //public void CreateLoginCredentialTest()
-        //{
-        //    // Arrange
-        //    var loginCredential = new LoginCredential();
+        [Fact]
+        public void CreateLoginCredentialTest()
+        {
+            // Arrange
+            var loginCredential = new LoginCredential();
+            var loginCredentials = new List<LoginCredential>();
 
-        //    var context = new Mock<MovieContext>();
-        //    var dbSetMock = new Mock<DbSet<LoginCredential>>();
+            var context = new Mock<MovieContext>();
+            var dbSetMock = new Mock<DbSet<LoginCredential>>();
 
-        //    context.Setup(x => x.Set<LoginCredential>()).Returns(dbSetMock.Object);
-        //    dbSetMock.Setup(x => x.Add(It.IsAny<LoginCredential>())).Returns();
+            context.Setup(x => x.Set<LoginCredential>()).Returns(dbSetMock.Object);
+            dbSetMock.Setup(m => m.Add(It.IsAny<LoginCredential>())).Callback((LoginCredential loginCredential1) => loginCredentials.Add(loginCredential1));
 
 
-        //    // Act
-        //    var repository = new LoginCredentialRepository(context.Object);
-        //    repository.Create(loginCredential);
+            // Act
+            var repository = new LoginCredentialRepository(context.Object);
+            repository.Create(loginCredential);
 
-        //    // Assert
-        //    context.Verify(x => x.Set<LoginCredential>());
-        //}
+            // Assert
+            context.Verify(x => x.Set<LoginCredential>());
+        }
 
         [Fact]
         public void GetAllStatesTest()
