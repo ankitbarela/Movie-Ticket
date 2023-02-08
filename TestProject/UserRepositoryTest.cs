@@ -5,6 +5,7 @@ using Moq;
 using WebApplication1;
 using WebApplication1.Db;
 using WebApplication1.Model;
+using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.State;
 using WebApplication1.Repository.User;
 using Xunit.Sdk;
@@ -13,6 +14,39 @@ namespace TestProject
 {
     public class UserRepositoryTest
     {
+        [Fact]
+        public void CreateUserCredentialTest()
+        {
+            // Arrange
+            var user =
+                new User
+                {
+                    UserId = 2,
+                    Name = "ankit",
+                    Email = "test@gmail.com",
+                    IsActive = true,
+                    CreatedBy = "me",
+                    UpdatedBy = "me",
+                    Password = "dsjfns",
+                    Age = 23,
+                    ContactNumber = "343224",
+                };
+            var users = new List<User>();
+
+            var context = new Mock<MovieContext>();
+            var dbSetMock = new Mock<DbSet<User>>();
+
+            context.Setup(x => x.Set<User>()).Returns(dbSetMock.Object);
+            dbSetMock.Setup(m => m.Add(It.IsAny<User>())).Callback((User user) => users.Add(user));
+
+            // Act
+            var repository = new UserRepository(context.Object);
+            var createdUser = repository.Create(user);
+
+            // Assert
+            context.Verify(x => x.Set<User>());
+            Assert.Equal(user, createdUser);
+        }
 
         [Fact]
         public void GetUsersWhereIsOnlyOneValueExitsTest()
