@@ -13,17 +13,20 @@ namespace WebApplication1.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository userRepository;
-        private readonly ILoginCredential loginCredential;
+        private readonly ILoginCredentialRepository loginCredential;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserRepository userRepository , ILoginCredential loginCredential)
+        public UserController(IUserRepository userRepository , ILoginCredentialRepository loginCredential, ILogger<UserController> logger)
         {
             this.userRepository = userRepository;
             this.loginCredential = loginCredential;
+            _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<User> Get()
         {
+            _logger.LogInformation("user executing");
             var users = userRepository.GetAll();
             return users;
         }

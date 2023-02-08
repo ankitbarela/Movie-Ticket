@@ -12,10 +12,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class LoginCredentialController : ControllerBase
     {
-        private readonly ILoginCredential _loginCredential;
+        private readonly ILoginCredentialRepository _loginCredential;
         private readonly IUserRepository userRepository;
 
-        public LoginCredentialController(ILoginCredential loginCredential, IUserRepository userRepository)
+        public LoginCredentialController(ILoginCredentialRepository loginCredential, IUserRepository userRepository)
         {
             this._loginCredential = loginCredential;
             this.userRepository = userRepository;

@@ -4,6 +4,10 @@ namespace WebApplication1.Db
 {
     public class MovieContext : DbContext
     {
+        public MovieContext()
+        {
+
+        }
         public MovieContext(DbContextOptions<MovieContext> options)
 : base(options)
         {

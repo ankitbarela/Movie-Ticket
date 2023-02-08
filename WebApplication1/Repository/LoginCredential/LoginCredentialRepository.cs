@@ -4,11 +4,11 @@ using WebApplication1.Model;
 
 namespace WebApplication1.Repository.LoginCredential
 {
-    public class LoginCredential : ILoginCredential
+    public class LoginCredentialRepository : ILoginCredentialRepository
     {
         private readonly MovieContext dbContext;
         private readonly DbSet<Model.LoginCredential> entities;
-        public LoginCredential(MovieContext dbContext)
+        public LoginCredentialRepository(MovieContext dbContext)
         {
             this.dbContext = dbContext;
             this.entities = dbContext.Set<Model.LoginCredential>();
