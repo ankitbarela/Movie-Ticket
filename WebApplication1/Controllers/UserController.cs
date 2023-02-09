@@ -15,15 +15,13 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
         private readonly ILoginCredentialRepository loginCredential;
         private readonly ILogger<UserController> _logger;
         private readonly IUserService userService;
         IMapper mapper;
 
-        public UserController(IUserRepository userRepository, ILoginCredentialRepository loginCredential, ILogger<UserController> logger,IUserService userService, IMapper mapper)
+        public UserController(ILoginCredentialRepository loginCredential, ILogger<UserController> logger,IUserService userService, IMapper mapper)
         {
-            this.userRepository = userRepository;
             this.loginCredential = loginCredential;
             _logger = logger;
             this.userService = userService;
@@ -36,28 +34,25 @@ namespace WebApplication1.Controllers
             _logger.LogInformation("user executing");
             var users = userService.GetAll();
             var userViewModels = mapper.Map<List<UserViewModel>>(users);
-          //  var users = userRepository.GetAll();
             return userViewModels;
         }
 
         [HttpGet("{id}")]
         public User Get(int id)
         {
-            var user = userRepository.GetById(id);
+            var user = userService.GetById(id);
             return user;
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Produces("application/json")]
-        public IResult Post(User user)
+        public IResult Post(UserViewModel userViewModel)
         {
-            var encryptedPassword = userRepository.EncodePassword(user.Password);
-            user.Password = encryptedPassword;
-            user.CreatedAt = DateTime.Now;
-            user.UpdatedAt = DateTime.Now;
-            user.IsActive= true;
-            var userCreated = userRepository.Create(user);
+            var encryptedPassword = userService.EncodePassword(userViewModel.Password);
+            userViewModel.Password = encryptedPassword;
+            var user = mapper.Map<User>(userViewModel);
+            var userCreated = userService.Create(user);
             if (userCreated != null)
             {
                 return Results.Ok(user.Email);
@@ -70,10 +65,10 @@ namespace WebApplication1.Controllers
         [Produces("application/json")]
         public IResult Update(string email , string password)
         {
-            var passwordChangedUser = userRepository.GetByEmail(email);
+            var passwordChangedUser = userService.GetByEmail(email);
             var convertUsertoLogin = loginCredential.AddData(passwordChangedUser);
             loginCredential.Create(convertUsertoLogin);
-            var encryptedPassword = userRepository.EncodePassword(password);
+            var encryptedPassword = userService.EncodePassword(password);
             passwordChangedUser.Password = encryptedPassword;
             var loginCredentials = loginCredential.GetByEmail(email);
             for (int i = 0; i < 3; i++)
@@ -88,7 +83,7 @@ namespace WebApplication1.Controllers
                     loginCredentials.RemoveAt(loginCredentials.Count - 1);
                 }
             }
-            var userCreated = userRepository.Update(passwordChangedUser);
+            var userCreated = userService.Update(passwordChangedUser);
             if (userCreated != null)
             {
                 return Results.Ok(passwordChangedUser.Email);

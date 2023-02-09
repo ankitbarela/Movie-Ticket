@@ -11,17 +11,25 @@ namespace WebApplication1.Services.User
         }
         public Model.User Authenticate(string userName, string password)
         {
-            throw new NotImplementedException();
+            var authenticateUser = _userRepository.Authenticate(userName, password);   
+            return authenticateUser;
         }
 
-        public Model.User Create(Model.User city)
+        public Model.User Create(Model.User user)
         {
-            throw new NotImplementedException();
+            user.CreatedBy = "me";
+            user.UpdatedBy = "me";
+            user.CreatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.Now;
+            user.IsActive = true;
+            var createUser = _userRepository.Create(user);
+            return createUser;
         }
 
         public string EncodePassword(string password)
         {
-            throw new NotImplementedException();
+           var encodedPassword = _userRepository.EncodePassword(password);
+           return encodedPassword;
         }
 
         public List<Model.User> GetAll()
@@ -32,17 +40,20 @@ namespace WebApplication1.Services.User
 
         public Model.User GetByEmail(string email)
         {
-            throw new NotImplementedException();
+           var userByEmail = _userRepository.GetByEmail(email);
+           return userByEmail;
         }
 
         public Model.User GetById(int id)
         {
-            throw new NotImplementedException();
+            var userById = _userRepository.GetById(id); 
+            return userById;
         }
 
         public Model.User Update(Model.User user)
         {
-            throw new NotImplementedException();
+           var updateUser = _userRepository.Update(user);
+            return updateUser;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace WebApplication1
         public AutoMapperProfile()
         {
             CreateMap<User , UserViewModel>();
+            CreateMap<UserViewModel, User>();
+
         }
     }
 }
