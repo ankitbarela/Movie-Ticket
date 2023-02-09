@@ -12,6 +12,7 @@ namespace WebApplication1
             CreateMap<UserViewModel, User>();
             CreateMap<UserViewModel, User>();
             CreateMap<State, StateViewModel>();
+            CreateMap<City, CityViewModel>();
         }
     }
 }

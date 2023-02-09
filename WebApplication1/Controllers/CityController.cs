@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Repository.City;
+using WebApplication1.Services.City;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -9,25 +12,29 @@ namespace WebApplication1.Controllers
     public class CityController : ControllerBase
     {
 
-        private readonly ICityRepository cityRepository;
+        private readonly ICityService cityService;
+        private readonly IMapper mapper;
 
-        public CityController(ICityRepository cityRepository)
+        public CityController(ICityService cityService , IMapper mapper)
         {
-            this.cityRepository = cityRepository;
+            this.cityService = cityService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Model.City> Get()
+        public IEnumerable<CityViewModel> Get()
         {
-            var cityies = cityRepository.GetAll();
-            return cityies;
+            var cityies = cityService.GetAll();
+            var citiesView = mapper.Map<List<CityViewModel>>(cityies);  
+            return citiesView;
         }
 
         [HttpGet("{id}")]
-        public Model.City Get(int id)
+        public CityViewModel Get(int id)
         {
-            var city = cityRepository.GetById(id);
-            return city;
+            var city = cityService.GetById(id);
+            var cityView = mapper.Map<CityViewModel>(city);
+            return cityView;
         }
 
     }
