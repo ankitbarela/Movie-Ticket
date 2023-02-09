@@ -9,5 +9,7 @@
         public string MovieType { get; set; }
         public int Rating { get; set; }
         public int CityId { get; set; }
+        public string ImageName { get; set; }
+
     }
 }
