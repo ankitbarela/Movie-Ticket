@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Repository.State;
+using WebApplication1.Services.State;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -8,25 +11,29 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class StateController : ControllerBase
     {
-        private readonly IStateRepository stateRepository;
+        private readonly IStateService stateService;
+        private readonly IMapper mapper;
 
-        public StateController(IStateRepository stateRepository)
+        public StateController(IStateService stateService , IMapper mapper)
         {
-            this.stateRepository = stateRepository;
+            this.stateService = stateService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Model.State> Get()
+        public IEnumerable<StateViewModel> Get()
         {
-            var states = stateRepository.GetAll();
-            return states;
+            var states = stateService.GetAll();
+            var statesView = mapper.Map<List<StateViewModel>>(states);
+            return statesView;
         }
 
         [HttpGet("{id}")]
-        public Model.State Get(int id)
+        public StateViewModel Get(int id)
         {
-            var state = stateRepository.GetById(id);
-            return state;
+            var state = stateService.GetById(id);
+            var stateView = mapper.Map<StateViewModel>(state);  
+            return stateView;
         }
     }
 }

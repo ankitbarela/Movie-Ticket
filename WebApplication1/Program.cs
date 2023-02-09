@@ -13,6 +13,7 @@ using WebApplication1.Repository.State;
 using WebApplication1.Repository.User;
 using WebApplication1.Services;
 using WebApplication1.Services.Mail;
+using WebApplication1.Services.State;
 using WebApplication1.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,7 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ILoginCredentialRepository, LoginCredentialRepository>();
 builder.Services.AddTransient<IMailService, MailService>();
+builder.Services.AddTransient<IStateService, StateService>();
 
 builder.Services.AddAuthentication(options =>
 {

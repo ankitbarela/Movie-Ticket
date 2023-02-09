@@ -10,7 +10,8 @@ namespace WebApplication1
         {
             CreateMap<User , UserViewModel>();
             CreateMap<UserViewModel, User>();
-
+            CreateMap<UserViewModel, User>();
+            CreateMap<State, StateViewModel>();
         }
     }
 }

@@ -38,10 +38,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("{id}")]
-        public User Get(int id)
+        public UserViewModel Get(int id)
         {
             var user = userService.GetById(id);
-            return user;
+            var userView = mapper.Map<UserViewModel>(user);
+            return userView;
         }
 
         [HttpPost]
