@@ -8,5 +8,6 @@
         public string CastingPartner { get; set; }
         public string MovieType { get; set; }
         public int Rating { get; set; }
+        public int CityId { get; set; }
     }
 }

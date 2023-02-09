@@ -14,6 +14,7 @@ using WebApplication1.Repository.User;
 using WebApplication1.Services;
 using WebApplication1.Services.City;
 using WebApplication1.Services.Mail;
+using WebApplication1.Services.Movie;
 using WebApplication1.Services.State;
 using WebApplication1.Services.User;
 
@@ -36,6 +37,7 @@ builder.Services.AddTransient<ILoginCredentialRepository, LoginCredentialReposit
 builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<IStateService, StateService>();
 builder.Services.AddTransient<ICityService, CityService>();
+builder.Services.AddTransient<IMovieService, MovieService>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Repository.Movie;
+using WebApplication1.Services.Movie;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -8,26 +11,31 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private readonly IMovieRepository movieRepository;
+        private readonly IMovieService movieService;
+        private readonly IMapper mapper;
 
-        public MovieController(IMovieRepository movieRepository)
+
+        public MovieController(IMovieService movieService , IMapper mapper)
         {
-            this.movieRepository = movieRepository;
+            this.movieService = movieService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Model.Movie> Get()
+        public IEnumerable<MovieViewModel> Get()
         {
-            var movies = movieRepository.GetAll();
-            return movies;
+            var movies = movieService.GetAll();
+            var moviesView =  mapper.Map<List<MovieViewModel>>(movies);
+            return moviesView;
         }
 
         [HttpGet("{id}")]
-        public List<Model.Movie> Get(int id)
+        public List<MovieViewModel> Get(int id)
         {
-            var moviesById = new List<Model.Movie>();
-            var movies = movieRepository.GetAll();
-            foreach (var movie in movies)
+            var moviesById = new List<MovieViewModel>();
+            var movies = movieService.GetAll();
+            var moviesView= mapper.Map<List<MovieViewModel>>(movies);
+            foreach (var movie in moviesView)
             {
                 if (movie.CityId == id)
                 {
