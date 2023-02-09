@@ -15,11 +15,6 @@ namespace WebApplication1.Repository.State
             this.entities = dbContext.Set<Model.State>();
         }
 
-        public Model.State Create(Model.State state)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Model.State> GetAll()
         {
             return this.entities.AsQueryable().ToList();

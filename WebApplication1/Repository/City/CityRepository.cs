@@ -13,11 +13,7 @@ namespace WebApplication1.Repository.City
             this.dbContext = dbContext;
             this.entities = dbContext.Set<Model.City>();
         }
-        public Model.City Create(Model.City entity)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public List<Model.City> GetAll()
         {
             return this.entities.AsQueryable().ToList();

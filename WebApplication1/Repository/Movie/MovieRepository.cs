@@ -12,11 +12,6 @@ namespace WebApplication1.Repository.Movie
             this.dbContext = dbContext;
             this.entities = dbContext.Set<Model.Movie>();
         }
-        public Model.Movie Create(Model.Movie movie)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Model.Movie> GetAll()
         {
             return this.entities.AsQueryable().ToList();

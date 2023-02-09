@@ -4,6 +4,5 @@
     {
         Model.Movie GetById(int id);
         List<Model.Movie> GetAll();
-        Model.Movie Create(Model.Movie movie);
     }
 }

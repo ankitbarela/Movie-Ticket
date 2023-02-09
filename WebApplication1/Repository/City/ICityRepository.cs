@@ -4,6 +4,5 @@
     {
         Model.City GetById(int id);
         List<Model.City> GetAll();
-        Model.City Create(Model.City city);
     }
 }
