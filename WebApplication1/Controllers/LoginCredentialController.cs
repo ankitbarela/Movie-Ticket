@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Model;
 using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.Movie;
 using WebApplication1.Repository.User;
+using WebApplication1.Services.LoginCredential;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -12,42 +15,45 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class LoginCredentialController : ControllerBase
     {
-        private readonly ILoginCredentialRepository _loginCredential;
         private readonly IUserRepository userRepository;
+        private readonly ILoginCredentialService loginCredentialService;
+        private readonly IMapper mapper;
 
-        public LoginCredentialController(ILoginCredentialRepository loginCredential, IUserRepository userRepository)
+        public LoginCredentialController(IUserRepository userRepository, ILoginCredentialService loginCredentialService , IMapper mapper)
         {
-            this._loginCredential = loginCredential;
             this.userRepository = userRepository;
+            this.loginCredentialService = loginCredentialService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Model.LoginCredential> Get()
+        public IEnumerable<LoginCredentialViewModel> Get()
         {
-            var loginCredentials = _loginCredential.GetAll();
-            return loginCredentials;
+            var loginCredentials = loginCredentialService.GetAll();
+            var loginCredentialsView = mapper.Map<List<LoginCredentialViewModel>>(loginCredentials);
+            return loginCredentialsView;
         }
 
         [HttpGet("{id}")]
-        public Model.LoginCredential Get(int id)
+        public LoginCredentialViewModel Get(int id)
         {
-            var logCredential = _loginCredential.GetById(id);
-            return logCredential;
+            var logCredential = loginCredentialService.GetById(id);
+            var loginCredentialView = mapper.Map<LoginCredentialViewModel>(logCredential);
+            return loginCredentialView;
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Produces("application/json")]
-        public IResult Post(Model.LoginCredential loginCredential)
+        public IResult Post(LoginCredentialViewModel loginCredentialView)
         {
-            var encryptedPassword = userRepository.EncodePassword(loginCredential.Password);
-            loginCredential.Password = encryptedPassword;
-            loginCredential.CreatedAt = DateTime.Now;
-            loginCredential.UpdatedAt = DateTime.Now;
-            var LoginCredentialCreated = _loginCredential.Create(loginCredential);
+            var encryptedPassword = userRepository.EncodePassword(loginCredentialView.Password);
+            loginCredentialView.Password = encryptedPassword;
+            var loginCrdential = mapper.Map<LoginCredential>(loginCredentialView);    
+            var LoginCredentialCreated = loginCredentialService.Create(loginCrdential);
             if (LoginCredentialCreated != null)
             {
-                return Results.Ok(loginCredential.Email);
+                return Results.Ok(loginCredentialView.Email);
             }
             return Results.BadRequest();    
         }

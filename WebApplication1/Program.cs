@@ -13,6 +13,7 @@ using WebApplication1.Repository.State;
 using WebApplication1.Repository.User;
 using WebApplication1.Services;
 using WebApplication1.Services.City;
+using WebApplication1.Services.LoginCredential;
 using WebApplication1.Services.Mail;
 using WebApplication1.Services.Movie;
 using WebApplication1.Services.State;
@@ -38,6 +39,7 @@ builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<IStateService, StateService>();
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IMovieService, MovieService>();
+builder.Services.AddTransient<ILoginCredentialService, LoginCredentialService>();
 
 builder.Services.AddAuthentication(options =>
 {

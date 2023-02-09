@@ -14,6 +14,8 @@ namespace WebApplication1
             CreateMap<State, StateViewModel>();
             CreateMap<City, CityViewModel>();
             CreateMap<Movie, MovieViewModel>();
+            CreateMap<LoginCredential, LoginCredentialViewModel>();
+            CreateMap<LoginCredentialViewModel, LoginCredential>();
         }
     }
 }
