@@ -1,7 +1,14 @@
-﻿namespace WebApplication1.Services.User
+﻿using WebApplication1.Repository.User;
+
+namespace WebApplication1.Services.User
 {
     public class UserService : IUserService
     {
+        private readonly IUserRepository _userRepository;
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository= userRepository;
+        }
         public Model.User Authenticate(string userName, string password)
         {
             throw new NotImplementedException();
@@ -19,7 +26,8 @@
 
         public List<Model.User> GetAll()
         {
-            throw new NotImplementedException();
+            var users = _userRepository.GetAll();
+            return users;
         }
 
         public Model.User GetByEmail(string email)

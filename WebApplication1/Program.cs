@@ -13,6 +13,7 @@ using WebApplication1.Repository.State;
 using WebApplication1.Repository.User;
 using WebApplication1.Services;
 using WebApplication1.Services.Mail;
+using WebApplication1.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ builder.Services.AddTransient<IStateRepository, StateRepository>();
 builder.Services.AddTransient<ICityRepository, CityRepository>();
 builder.Services.AddTransient<IMovieRepository, MovieRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ILoginCredentialRepository, LoginCredentialRepository>();
 builder.Services.AddTransient<IMailService, MailService>();
 

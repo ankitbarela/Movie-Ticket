@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Model;
 using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.Movie;
 using WebApplication1.Repository.User;
+using WebApplication1.Services.User;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -15,20 +18,26 @@ namespace WebApplication1.Controllers
         private readonly IUserRepository userRepository;
         private readonly ILoginCredentialRepository loginCredential;
         private readonly ILogger<UserController> _logger;
+        private readonly IUserService userService;
+        IMapper mapper;
 
-        public UserController(IUserRepository userRepository , ILoginCredentialRepository loginCredential, ILogger<UserController> logger)
+        public UserController(IUserRepository userRepository, ILoginCredentialRepository loginCredential, ILogger<UserController> logger,IUserService userService, IMapper mapper)
         {
             this.userRepository = userRepository;
             this.loginCredential = loginCredential;
             _logger = logger;
+            this.userService = userService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<UserViewModel> Get()
         {
             _logger.LogInformation("user executing");
-            var users = userRepository.GetAll();
-            return users;
+            var users = userService.GetAll();
+            var userViewModels = mapper.Map<List<UserViewModel>>(users);
+          //  var users = userRepository.GetAll();
+            return userViewModels;
         }
 
         [HttpGet("{id}")]
