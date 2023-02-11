@@ -16,6 +16,11 @@ namespace WebApplication1
             CreateMap<Movie, MovieViewModel>();
             CreateMap<LoginCredential, LoginCredentialViewModel>();
             CreateMap<LoginCredentialViewModel, LoginCredential>();
+            CreateMap<ScreenViewModel, Screen>();
+            CreateMap<Screen, ScreenViewModel>();
+            CreateMap<TheaterViewModel, Theater>().ReverseMap();
+            CreateMap<SeatViewModel, Seat>().ReverseMap();
+            CreateMap<ShowViewModel, Show>().ReverseMap();
         }
     }
 }

@@ -9,14 +9,21 @@ using WebApplication1.Model;
 using WebApplication1.Repository.City;
 using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.Movie;
+using WebApplication1.Repository.Screen;
+using WebApplication1.Repository.Show;
 using WebApplication1.Repository.State;
+using WebApplication1.Repository.Theater;
 using WebApplication1.Repository.User;
 using WebApplication1.Services;
 using WebApplication1.Services.City;
 using WebApplication1.Services.LoginCredential;
 using WebApplication1.Services.Mail;
 using WebApplication1.Services.Movie;
+using WebApplication1.Services.Screen;
+using WebApplication1.Services.Seat;
+using WebApplication1.Services.Show;
 using WebApplication1.Services.State;
+using WebApplication1.Services.Theater;
 using WebApplication1.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +47,14 @@ builder.Services.AddTransient<IStateService, StateService>();
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IMovieService, MovieService>();
 builder.Services.AddTransient<ILoginCredentialService, LoginCredentialService>();
+builder.Services.AddTransient<ITheaterService, TheaterService>();
+builder.Services.AddTransient<ISeatService, SeatService>();
+builder.Services.AddTransient<IShowService, ShowService>();
+builder.Services.AddTransient<IScreenService, ScreenService>();
+builder.Services.AddTransient<IScreenRepository, ScreenRepository>();
+builder.Services.AddTransient<IShowRepository, ShowRepository>();
+builder.Services.AddTransient<ITheaterRepository, TheaterRepository>();
+builder.Services.AddTransient<IScreenService, ScreenService>();
 
 builder.Services.AddAuthentication(options =>
 {

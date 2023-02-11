@@ -6,7 +6,7 @@ namespace WebApplication1.Model
     {
         public int TheaterId { get; set; }
         public string TheaterName { get; set; }
-        public string Rating { get; set; }
+        public int Rating { get; set; }
         [ForeignKey("CityId")]
         public int CityId { get; set; }
 
