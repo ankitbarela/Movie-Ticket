@@ -18,5 +18,9 @@ namespace WebApplication1.Db
         public DbSet<Model.Movie> Movie { get; set; }
         public DbSet<Model.User> User { get; set; }
         public DbSet<Model.LoginCredential> loginCredential { get; set; }
+        public DbSet<Model.Screen> Screen { get; set; }
+        public DbSet<Model.Show> Show { get; set; }
+        public DbSet<Model.Theater> Theater { get; set; }
+        public DbSet<Model.Seat> Seat { get; set; }
     }
 }
