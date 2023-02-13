@@ -9,5 +9,6 @@ namespace WebApplication1.ViewModel
         public string TotalRow { get; set; }
         [ForeignKey("ScreenId")]
         public int ScreenId { get; set; }
+        public int PricePerSeat { get; set; }
     }
 }

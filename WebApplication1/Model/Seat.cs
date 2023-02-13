@@ -14,5 +14,7 @@ namespace WebApplication1.Model
         public string UpdatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public int PricePerSeat { get; set; }
+
     }
 }

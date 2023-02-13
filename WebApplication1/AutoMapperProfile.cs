@@ -21,6 +21,8 @@ namespace WebApplication1
             CreateMap<TheaterViewModel, Theater>().ReverseMap();
             CreateMap<SeatViewModel, Seat>().ReverseMap();
             CreateMap<ShowViewModel, Show>().ReverseMap();
+            CreateMap<BookingSummary, BookingSummaryViewModel>();
+            CreateMap<BookingSummaryViewModel, BookingSummary>();
         }
     }
 }

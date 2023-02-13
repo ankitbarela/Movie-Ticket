@@ -22,5 +22,6 @@ namespace WebApplication1.Db
         public DbSet<Model.Show> Show { get; set; }
         public DbSet<Model.Theater> Theater { get; set; }
         public DbSet<Model.Seat> Seat { get; set; }
+        public DbSet<Model.BookingSummary> BookingSummary { get; set; }
     }
 }
