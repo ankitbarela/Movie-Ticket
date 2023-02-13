@@ -8,7 +8,6 @@ namespace WebApplication1.Model
         public int BookingId { get; set; }
         public string TheaterName { get; set; }
         public string MovieName { get; set; }
-        public int ScreenNumber { get; set; }
         public int NumberOfSeats { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }

@@ -12,5 +12,6 @@ namespace WebApplication1.ViewModel
 
         [ForeignKey("MovieId")]
         public int MovieId { get; set; }
+        public int PricePerSeat { get; set; }
     }
 }
