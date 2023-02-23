@@ -9,6 +9,7 @@ namespace WebApplication1.Model
         public string TheaterName { get; set; }
         public string MovieName { get; set; }
         public int NumberOfSeats { get; set; }
+        public string SeatNumbers { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public int UpdatedBy { get; set; }

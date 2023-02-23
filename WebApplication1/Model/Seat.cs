@@ -5,8 +5,7 @@ namespace WebApplication1.Model
     public class Seat
     {
         public int SeatId { get; set; }
-        public string SeatNumber { get; set; }
-        public string TotalRow { get; set; }
+        public int SeatNumber { get; set; }
         [ForeignKey("ScreenId")]
         public int ScreenId { get; set; }
         public bool IsActive { get; set; }
