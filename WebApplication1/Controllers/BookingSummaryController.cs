@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Produces("application/json")]
-        public IResult Post(BookingSummaryViewModel bookingSummaryViewModel)
+        public async Task<IResult> Post(BookingSummaryViewModel bookingSummaryViewModel)
         {
             try
             {

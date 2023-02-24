@@ -13,6 +13,10 @@ namespace WebApplication1.Services.BookedSeat
             this.bookedSeatRepository = bookedSeatRepository;
         }
 
+        public List<Model.BookedSeats> GetAll()
+        {
+            return bookedSeatRepository.GetAll();
+        }
         public void Create(List<int> bookedSeats , int showId)
         {
             var bookSeats = new Model.BookedSeats();

@@ -23,6 +23,8 @@ namespace WebApplication1
             CreateMap<ShowViewModel, Show>().ReverseMap();
             CreateMap<BookingSummary, BookingSummaryViewModel>();
             CreateMap<BookingSummaryViewModel, BookingSummary>();
+            CreateMap<BookedSeatsViewModel, BookedSeats>();
+            CreateMap<BookedSeats, BookedSeatsViewModel>();
         }
     }
 }

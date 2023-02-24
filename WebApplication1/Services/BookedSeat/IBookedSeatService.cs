@@ -3,5 +3,6 @@
     public interface IBookedSeatService
     {
         void Create(List<int> bookedSeats , int showId);
+        List<Model.BookedSeats> GetAll();
     }
 }
