@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using WebApplication1.Db;
 using WebApplication1.Model;
+using WebApplication1.Repository.BookedSeat;
 using WebApplication1.Repository.BookingSummary;
 using WebApplication1.Repository.City;
 using WebApplication1.Repository.LoginCredential;
@@ -17,6 +18,7 @@ using WebApplication1.Repository.State;
 using WebApplication1.Repository.Theater;
 using WebApplication1.Repository.User;
 using WebApplication1.Services;
+using WebApplication1.Services.BookedSeat;
 using WebApplication1.Services.BookingSummary;
 using WebApplication1.Services.City;
 using WebApplication1.Services.LoginCredential;
@@ -61,6 +63,8 @@ builder.Services.AddTransient<ITheaterRepository, TheaterRepository>();
 builder.Services.AddTransient<IScreenService, ScreenService>();
 builder.Services.AddTransient<IBookingSummaryRepository, BookingSummaryRepository>();
 builder.Services.AddTransient<IBookingSummaryService, BookingSummaryService>();
+builder.Services.AddTransient<IBookedSeatService, BookedSeatService>();
+builder.Services.AddTransient<IBookedSeatRepository, BookedSeatRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
