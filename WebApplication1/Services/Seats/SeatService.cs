@@ -1,27 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Db;
+using WebApplication1.Repository.Seat;
 
 namespace WebApplication1.Services.Seat
 {
     public class SeatService : ISeatService
     {
-        private readonly MovieContext dbContext;
-        private readonly DbSet<Model.Seat> entities;
+        private readonly ISeatRepository seatRepository;
 
-        public SeatService(MovieContext dbContext)
+        public SeatService(ISeatRepository seatRepository)
         {
-            this.dbContext = dbContext;
-            this.entities = dbContext.Set<Model.Seat>();
+            this.seatRepository = seatRepository;
         }
 
         public List<Model.Seat> GetAll()
         {
-            return this.entities.AsQueryable().ToList();
+          var allSeats = seatRepository.GetAll();
+          return allSeats;
         }
 
         public Model.Seat GetById(int id)
         {
-            return entities.Find(id);
+            var seat = new Model.Seat();
+            return seat;
         }
     }
 }

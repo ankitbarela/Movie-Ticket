@@ -3,7 +3,7 @@ using WebApplication1.Db;
 
 namespace WebApplication1.Repository.Seat
 {
-    public class SeatRepository
+    public class SeatRepository : ISeatRepository
     {
         private readonly MovieContext dbContext;
         private readonly DbSet<Model.Seat> entities;
