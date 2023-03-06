@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using WebApplication1.Model;
 using WebApplication1.Services.BookedSeat;
 using WebApplication1.Services.BookingSummary;
@@ -32,6 +34,8 @@ namespace WebApplication1.Controllers
         {
             try
             {
+                var claimIdentity =  User.Identity as ClaimsIdentity;
+                var userId = claimIdentity.FindFirst("Id");
                 var bookingSummaryMap = mapper.Map<BookingSummary>(bookingSummaryViewModel);
                 var bookinSummary = bookingSummaryService.Create(bookingSummaryMap);
                 bookedSeatService.Create(bookingSummaryViewModel.BookedSeats, bookingSummaryViewModel.ShowId);

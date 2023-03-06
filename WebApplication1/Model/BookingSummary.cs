@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Model
 {
@@ -15,5 +16,9 @@ namespace WebApplication1.Model
         public int UpdatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+
     }
 }

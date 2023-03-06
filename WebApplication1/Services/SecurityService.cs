@@ -18,7 +18,7 @@ namespace WebApplication1.Services
             _configuration = configuration;
             _userRepository = userRepository;
         }
-        public (bool, string) ValidateUser(LoginRequest loginDetails)
+        public (bool, string , int) ValidateUser(LoginRequest loginDetails)
         {
             var encryptPassword = _userRepository.EncodePassword(loginDetails.Password);
             loginDetails.Password = encryptPassword;
@@ -33,7 +33,7 @@ namespace WebApplication1.Services
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim("Id", Guid.NewGuid().ToString()),
+                        new Claim("Id", (user.UserId).ToString()),
                         new Claim(JwtRegisteredClaimNames.Sub, loginDetails.UserName),
                         new Claim(JwtRegisteredClaimNames.Email, loginDetails.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti,
@@ -50,9 +50,9 @@ namespace WebApplication1.Services
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = tokenHandler.WriteToken(token);
                 var stringToken = tokenHandler.WriteToken(token);
-                return (true, stringToken);
+                return (true, stringToken , user.UserId);
             }
-            return (false, "");
+            return (false, "" , 0);
         }
     }
 }

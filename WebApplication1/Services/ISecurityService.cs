@@ -8,7 +8,7 @@ namespace WebApplication1.Services
 {
   public interface ISecurityService
     {
-        (bool, string) ValidateUser(LoginRequest loginDetails);
+        (bool, string , int) ValidateUser(LoginRequest loginDetails);
 
     }
 }

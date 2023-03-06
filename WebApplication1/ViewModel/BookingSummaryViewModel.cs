@@ -12,5 +12,6 @@ namespace WebApplication1.ViewModel
         public List<int> BookedSeats { get; set;}
         [ForeignKey("ShowId")]
         public int ShowId { get; set; }
+        public int UserId { get; set; }
     }
 }

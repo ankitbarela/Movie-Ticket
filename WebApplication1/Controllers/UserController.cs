@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserViewModel> Get()
+        public async Task<IEnumerable<UserViewModel>> Get()
         {
             _logger.LogInformation("user executing");
             var users = userService.GetAll();

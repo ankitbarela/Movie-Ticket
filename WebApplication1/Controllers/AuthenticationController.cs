@@ -23,8 +23,9 @@ namespace WebApplication1.Controllers
         {
             bool isValid = false;
             string token;
-           (isValid, token) =_securityService.ValidateUser(request) ;
-           return isValid? Results.Ok(token): Results.Unauthorized();
+            int userId;
+           (isValid, token , userId) =_securityService.ValidateUser(request) ;
+           return isValid? Results.Ok(new { token = token, userId = userId}) : Results.Unauthorized();
 
         } 
     }
