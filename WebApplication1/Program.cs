@@ -11,6 +11,7 @@ using WebApplication1.Repository.BookingSummary;
 using WebApplication1.Repository.City;
 using WebApplication1.Repository.LoginCredential;
 using WebApplication1.Repository.Movie;
+using WebApplication1.Repository.Payment;
 using WebApplication1.Repository.Screen;
 using WebApplication1.Repository.Seat;
 using WebApplication1.Repository.Show;
@@ -24,6 +25,7 @@ using WebApplication1.Services.City;
 using WebApplication1.Services.LoginCredential;
 using WebApplication1.Services.Mail;
 using WebApplication1.Services.Movie;
+using WebApplication1.Services.Payment;
 using WebApplication1.Services.Screen;
 using WebApplication1.Services.Seat;
 using WebApplication1.Services.Show;
@@ -65,6 +67,8 @@ builder.Services.AddTransient<IBookingSummaryRepository, BookingSummaryRepositor
 builder.Services.AddTransient<IBookingSummaryService, BookingSummaryService>();
 builder.Services.AddTransient<IBookedSeatService, BookedSeatService>();
 builder.Services.AddTransient<IBookedSeatRepository, BookedSeatRepository>();
+builder.Services.AddTransient<IPaymentRepository, PaymentRepository>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
 
 builder.Services.AddAuthentication(options =>
 {

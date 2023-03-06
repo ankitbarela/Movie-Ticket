@@ -25,6 +25,8 @@ namespace WebApplication1
             CreateMap<BookingSummaryViewModel, BookingSummary>();
             CreateMap<BookedSeatsViewModel, BookedSeats>();
             CreateMap<BookedSeats, BookedSeatsViewModel>();
+            CreateMap<Payment, PaymentViewModel>();
+            CreateMap<PaymentViewModel, Payment>();
         }
     }
 }
